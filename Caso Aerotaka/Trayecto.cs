@@ -4,11 +4,13 @@ namespace Caso_Aerotaka
 {
     public class Trayecto
     {
+        // Atributos
         private string _codigo;
         private string _origen, _destino;
         private DateTime _horaPartida, _horaLlegada;
         private int _valor;
 
+        //Propiedades
         public string Codigo => _codigo;
 
         public string Origen => _origen;
@@ -21,6 +23,7 @@ namespace Caso_Aerotaka
 
         public int Valor => _valor;
 
+        // Constructores
         public Trayecto()
         {
         }
