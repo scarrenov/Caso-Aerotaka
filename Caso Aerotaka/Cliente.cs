@@ -29,6 +29,6 @@
             _email = email;
             _telefono = telefono;
             _ciudad = ciudad;
-        }
+        }   
     }
 }

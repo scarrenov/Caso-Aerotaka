@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Caso_Aerotaka
 {
-    internal class ObjectController
+    internal static class ObjectController
     {
         private const string ClientesPath = @"JsonFiles\AerotakaClientes.json";
         private const string ReservasPath = @"JsonFiles\AerotakaReservas.json";
