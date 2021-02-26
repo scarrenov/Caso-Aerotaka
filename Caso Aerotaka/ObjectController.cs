@@ -6,14 +6,21 @@ using Newtonsoft.Json;
 
 namespace Caso_Aerotaka
 {
-    public class ObjectController
+    internal class ObjectController
     {
+        private const string ClientesPath = @"JsonFiles\AerotakaClientes.json";
+        private const string ReservasPath = @"JsonFiles\AerotakaReservas.json";
+        private const string DistribucionPath = @"JsonFiles\AerotakaDistribuciones.json";
+        private const string PersonalPath = @"JsonFiles\AerotakaPersonal.json";
+        private const string TrayectosPath = @"JsonFiles\AerotakaTrayectos.json";
+        private const string AeronavesPath = @"JsonFiles\AerotakaAeronaves.json";
+        
         /// <summary>
         /// Busca e imprime un cliente de la colección clientes cuya ciudad coincida con ciudadObjetivo.
         /// </summary>
         /// <param name="clientes">Colección de clientes a buscar</param>
         /// <param name="ciudadObjetivo">Ciudad que se buscará en los atributos de la colección de clientes</param>
-        public void BuscarClientePorCiudad(IEnumerable<Cliente> clientes, string ciudadObjetivo)
+        public static void BuscarClientePorCiudad(IEnumerable<Cliente> clientes, string ciudadObjetivo)
         {
             var clienteQuery =
                 from cliente
@@ -28,7 +35,7 @@ namespace Caso_Aerotaka
         /// Lista, de forma ordenada, todos los elementos de una colección.
         /// </summary>
         /// <param name="lista">Colección a listar.</param>
-        private static void ListarInfo(IEnumerable<Cliente> lista)
+        public static void ListarInfo(IEnumerable<Cliente> lista)
         {
             foreach (var t in lista)
             {
@@ -45,22 +52,50 @@ namespace Caso_Aerotaka
         /// <summary>
         /// Guarda la lista listaGuardada en un archivo .json en el directorio especificado.
         /// </summary>
-        /// <param name="listaGuardada">Coleccion de objetos a guardar</param>
-        public void Guardar(IEnumerable<object> listaGuardada)
+        /// <param name="clientes">Coleccion de objetos a guardar</param>
+        public static void GuardarClientes(IEnumerable<Cliente> clientes)
         {
-            var jsonObject = JsonConvert.SerializeObject(listaGuardada);
-            const string path = @"C:\JsonFiles\Aerotaka.json";
-            File.WriteAllText(jsonObject, path);
+            var jsonObject = JsonConvert.SerializeObject(clientes);
+            File.WriteAllText(ClientesPath, jsonObject);
         }
 
-        public List<object> Cargar()
+        public static void Cargar(out List<Cliente> clientes, out List<Reserva> reservas, out List<Distribucion> distribuciones, out List<Personal> personal, out List<Aeronave> aeronaves, out List<Trayecto> trayectos)
         {
-            var path = @"C:\JsonFiles\Aerotaka.json";
-            using var jsonStream = File.OpenText(path);
-            var jsonRead = jsonStream.ReadToEnd();
-            var output = JsonConvert.DeserializeObject<List<object>>(jsonRead);
+            using (var clientesStream = File.OpenText(ClientesPath))
+            {
+                var jsonRead = clientesStream.ReadToEnd();
+                clientes = JsonConvert.DeserializeObject<List<Cliente>>(jsonRead);
+            }
 
-            return output;
+            using (var reservaStream = File.OpenText(ReservasPath))
+            {
+                var jsonRead = reservaStream.ReadToEnd();
+                reservas = JsonConvert.DeserializeObject<List<Reserva>>(jsonRead);
+            }
+            
+            using (var distribucionesStream = File.OpenText(DistribucionPath))
+            {
+                var jsonRead = distribucionesStream.ReadToEnd();
+                distribuciones = JsonConvert.DeserializeObject<List<Distribucion>>(jsonRead);
+            }
+            
+            using (var personalStream = File.OpenText(PersonalPath))
+            {
+                var jsonRead = personalStream.ReadToEnd();
+                personal = JsonConvert.DeserializeObject<List<Personal>>(jsonRead);
+            }
+            
+            using (var aeronavesStream = File.OpenText(AeronavesPath))
+            {
+                var jsonRead = aeronavesStream.ReadToEnd();
+                aeronaves = JsonConvert.DeserializeObject<List<Aeronave>>(jsonRead);
+            }
+            
+            using (var trayectosStream = File.OpenText(TrayectosPath))
+            {
+                var jsonRead = trayectosStream.ReadToEnd();
+                trayectos = JsonConvert.DeserializeObject<List<Trayecto>>(jsonRead);
+            }
         }
     }
 }
