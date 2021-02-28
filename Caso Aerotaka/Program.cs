@@ -6,7 +6,7 @@ namespace Caso_Aerotaka
     {
         private static void Main()
         {
-            
+            PruebaClientes();
         }
 
         private static void PruebaClientes()
