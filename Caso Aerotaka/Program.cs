@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Caso_Aerotaka
 {
     internal static class Program
     {
         private static void Main()
+        {
+            
+        }
+
+        private static void PruebaClientes()
         {
             ObjectController.Cargar
             (
@@ -15,7 +19,7 @@ namespace Caso_Aerotaka
                 out var personal,
                 out var aeronaves,
                 out var trayectos
-                );
+            );
             ObjectController.ListarInfo(clientes);
             var intPtr = Convert.ToInt32(Console.ReadLine());
             for (var i = 0; i < intPtr; i++)
@@ -31,10 +35,11 @@ namespace Caso_Aerotaka
                 var telefono = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Ciudad:");
                 var ciudad = Console.ReadLine();
-                
+
                 var newCliente = new Cliente(id, nombre, email, telefono, ciudad);
                 clientes.Add(newCliente);
             }
+
             ObjectController.GuardarClientes(clientes);
         }
     }

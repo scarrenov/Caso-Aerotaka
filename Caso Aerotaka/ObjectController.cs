@@ -23,12 +23,21 @@ namespace Caso_Aerotaka
         public static void BuscarClientePorCiudad(IEnumerable<Cliente> clientes, string ciudadObjetivo)
         {
             var clienteQuery =
-                from cliente
-                in clientes
+                from cliente in clientes
                 where cliente.Ciudad.Contains(ciudadObjetivo)
                 select cliente;
 
             ListarInfo(clienteQuery);
+        }
+
+        public static IEnumerable<Trayecto> BuscarVueloPorDestino(IEnumerable<Trayecto> trayectos, string ciudadDestino)
+        {
+            var destinoQuery =
+                from trayecto in trayectos 
+                where trayecto.Destino.Contains(ciudadDestino) 
+                select trayecto;
+
+            return destinoQuery;
         }
 
         /// <summary>
