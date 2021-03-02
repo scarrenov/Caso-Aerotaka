@@ -41,6 +41,26 @@ namespace Caso_Aerotaka
         }
 
         /// <summary>
+        /// Busca un cliente de la lista clientes según el id seleccionado.
+        /// </summary>
+        /// <param name="clientes">Colección de clientes.</param>
+        /// <param name="iD">ID a coincidir dentro de la coleección de clientes.</param>
+        /// <param name="outputCliente">Almacena el primer cliente que coincide con el ID criterio.</param>
+        /// <returns>Verdadero si se encuentra un cliente con el ID ingresado, falso en caso contrario.</returns>
+        public static bool BuscarClientePorId(IEnumerable<Cliente> clientes, int iD, out Cliente outputCliente)
+        {
+            foreach (var thisCliente in clientes)
+            {
+                if (thisCliente.ID != iD) continue;
+                outputCliente = thisCliente;
+                return true;
+            }
+
+            outputCliente = null;
+            return false;
+        }
+
+        /// <summary>
         /// Lista, de forma ordenada, todos los elementos de una colección.
         /// </summary>
         /// <param name="lista">Colección a listar.</param>
