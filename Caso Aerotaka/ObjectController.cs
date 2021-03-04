@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +14,9 @@ namespace Caso_Aerotaka
         private const string PersonalPath = @"JsonFiles\AerotakaPersonal.json";
         private const string TrayectosPath = @"JsonFiles\AerotakaTrayectos.json";
         private const string AeronavesPath = @"JsonFiles\AerotakaAeronaves.json";
-        
+
+        #region Métodos de búsqueda
+
         /// <summary>
         /// Busca e imprime un cliente de la colección clientes cuya ciudad coincida con ciudadObjetivo.
         /// </summary>
@@ -30,6 +32,12 @@ namespace Caso_Aerotaka
             ListarClientes(clienteQuery);
         }
 
+        /// <summary>
+        /// Busca trayectos cuya ciudad destino correspondiente sea ciudadDestino
+        /// </summary>
+        /// <param name="trayectos">Colección de trayectos donde se buscará</param>
+        /// <param name="ciudadDestino">Ciudad a buscar dentro de la colección de trayectos</param>
+        /// <returns>Retorna una colección de trayectos a las que le corresponde la ciudad destino ingresada</returns>
         public static IEnumerable<Trayecto> BuscarVueloPorDestino(IEnumerable<Trayecto> trayectos, string ciudadDestino)
         {
             var destinoQuery =
@@ -59,6 +67,9 @@ namespace Caso_Aerotaka
             outputCliente = null;
             return false;
         }
+        #endregion
+
+        #region Métodos de listado
 
         /// <summary>
         /// Lista, de forma ordenada, todos los elementos de una colección.
@@ -94,6 +105,10 @@ namespace Caso_Aerotaka
             }
         }
 
+        #endregion
+
+        #region Métodos de guardado
+
         /// <summary>
         /// Guarda la lista listaGuardada en un archivo .json en el directorio especificado.
         /// </summary>
@@ -104,7 +119,39 @@ namespace Caso_Aerotaka
             File.WriteAllText(ClientesPath, jsonObject);
         }
 
-        public static void Cargar(out List<Cliente> clientes, out List<Reserva> reservas, out List<Distribucion> distribuciones, out List<Personal> personal, out List<Aeronave> aeronaves, out List<Trayecto> trayectos)
+        public static void GuardarDistribucion(IEnumerable<Distribucion> distribucion)
+        {
+            var jsonObject = JsonConvert.SerializeObject(distribucion);
+            File.WriteAllText(DistribucionPath, jsonObject);
+        }
+
+        public static void GuardarAeronaves(IEnumerable<Aeronave> aeronaves)
+        {
+            var jsonObject = JsonConvert.SerializeObject(aeronaves);
+            File.WriteAllText(AeronavesPath, jsonObject);
+        }
+
+        public static void GuardarTripulación(IEnumerable<Tripulacion> tripulacion)
+        {
+            var jsonObject = JsonConvert.SerializeObject(tripulacion);
+            File.WriteAllText(PersonalPath, jsonObject);
+        }
+
+        public static void GuardarReservas(IEnumerable<Reserva> reservas)
+        {
+            var jsonObject = JsonConvert.SerializeObject(reservas);
+            File.WriteAllText(ReservasPath, jsonObject);
+        }
+
+        public static void GuardarTrayectos(IEnumerable<Trayecto> trayectos)
+        {
+            var jsonObject = JsonConvert.SerializeObject(trayectos);
+            File.WriteAllText(TrayectosPath, jsonObject);
+        }
+
+        #endregion
+
+        public static void Cargar(out List<Cliente> clientes, out List<Reserva> reservas, out List<Distribucion> distribuciones, out List<Tripulacion> personal, out List<Aeronave> aeronaves, out List<Trayecto> trayectos)
         {
             using (var clientesStream = File.OpenText(ClientesPath))
             {
@@ -127,7 +174,7 @@ namespace Caso_Aerotaka
             using (var personalStream = File.OpenText(PersonalPath))
             {
                 var jsonRead = personalStream.ReadToEnd();
-                personal = JsonConvert.DeserializeObject<List<Personal>>(jsonRead);
+                personal = JsonConvert.DeserializeObject<List<Tripulacion>>(jsonRead);
             }
             
             using (var aeronavesStream = File.OpenText(AeronavesPath))
