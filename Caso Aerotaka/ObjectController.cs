@@ -27,7 +27,7 @@ namespace Caso_Aerotaka
                 where cliente.Ciudad.Contains(ciudadObjetivo)
                 select cliente;
 
-            ListarInfo(clienteQuery);
+            ListarClientes(clienteQuery);
         }
 
         public static IEnumerable<Trayecto> BuscarVueloPorDestino(IEnumerable<Trayecto> trayectos, string ciudadDestino)
@@ -64,7 +64,7 @@ namespace Caso_Aerotaka
         /// Lista, de forma ordenada, todos los elementos de una colección.
         /// </summary>
         /// <param name="lista">Colección a listar.</param>
-        public static void ListarInfo(IEnumerable<Cliente> lista)
+        public static void ListarClientes(IEnumerable<Cliente> lista)
         {
             foreach (var t in lista)
             {
@@ -73,8 +73,24 @@ namespace Caso_Aerotaka
                 Console.WriteLine("Email: " + t.Email);
                 Console.WriteLine("Teléfono: " + t.Telefono);
                 Console.WriteLine("Ciudad: " + t.Ciudad);
-                Console.WriteLine("Oprima cualquier tecla para continuar...");
-                Console.ReadKey();
+                Console.WriteLine("______________________________");
+            }
+            Console.WriteLine("Oprima cualquier tecla para continuar...");
+            Console.ReadKey();
+        }
+
+        public static void ListarTrayectos(IEnumerable<Trayecto> trayectos)
+        {
+            foreach (var t in trayectos)
+            {
+                Console.WriteLine("Trayecto disponible");
+                Console.WriteLine("Código de trayecto: " + t.Codigo);
+                Console.WriteLine("Ciudad origen: " + t.Origen);
+                Console.WriteLine("Ciudad destino: " + t.Destino);
+                Console.WriteLine("Hora de partida: " + t.HoraPartida);
+                Console.WriteLine("Hora llegada: " + t.HoraLlegada);
+                Console.WriteLine("Valor del trayecto: $" + t.Valor);
+                Console.WriteLine("____________________________________");
             }
         }
 
